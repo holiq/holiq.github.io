@@ -28,11 +28,8 @@ export default function Hero() {
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          {/* @ts-expect-error - Three.js primitives in React Three Fiber don't have proper TypeScript definitions */}
           <ambientLight intensity={0.5} />
-          {/* @ts-expect-error - Three.js primitives in React Three Fiber don't have proper TypeScript definitions */}
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          {/* @ts-expect-error - Three.js primitives in React Three Fiber don't have proper TypeScript definitions */}
           <pointLight position={[-10, -10, -5]} intensity={0.5} color="#6366F1" />
           <AnimatedSphere />
           <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
