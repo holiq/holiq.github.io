@@ -29,6 +29,8 @@ jobs:
       
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
+        # Note: --legacy-peer-deps is required due to React Three Fiber's peer dependency
+        # conflict with React 18. This will be resolved when R3F updates to support React 19.
       
       - name: Build with Next.js
         run: npm run build
