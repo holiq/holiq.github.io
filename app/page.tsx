@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-900">
+    <main className="min-h-screen bg-[var(--bg)] transition-colors duration-300">
       <Navigation />
       <Hero />
       <GitHubStats />

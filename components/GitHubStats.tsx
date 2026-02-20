@@ -1,66 +1,57 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import gsap from 'gsap'
 import { GitBranch, GitCommit, GitPullRequest } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
-import { staggerContainer, fadeInUp } from '@/lib/animations'
+import { staggerContainer, zoomIn } from '@/lib/animations'
+import { GitHubStatsSkeleton } from './Skeletons'
 
 export default function GitHubStats() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
-  
   const commitsRef = useRef<HTMLDivElement>(null)
   const reposRef = useRef<HTMLDivElement>(null)
   const contribsRef = useRef<HTMLDivElement>(null)
 
+  const isInView = useInView(ref, { once: true })
+
   useEffect(() => {
-    if (isInView) {
-      // Animate commits counter
-      if (commitsRef.current) {
-        gsap.to(commitsRef.current, {
-          innerText: portfolioData.githubStats.commits,
-          duration: 2,
-          ease: 'power1.out',
-          snap: { innerText: 1 },
-          onUpdate: function() {
-            if (commitsRef.current) {
-              commitsRef.current.innerText = Math.ceil(Number(commitsRef.current.innerText)).toLocaleString() + '+'
-            }
-          }
-        })
-      }
+    if (!isInView) return
 
-      // Animate repositories counter
-      if (reposRef.current) {
-        gsap.to(reposRef.current, {
-          innerText: portfolioData.githubStats.repositories,
-          duration: 2,
-          ease: 'power1.out',
-          snap: { innerText: 1 },
-          onUpdate: function() {
-            if (reposRef.current) {
-              reposRef.current.innerText = Math.ceil(Number(reposRef.current.innerText)) + '+'
-            }
-          }
-        })
-      }
+    let ctx: any
 
-      // Animate contributions counter
-      if (contribsRef.current) {
-        gsap.to(contribsRef.current, {
-          innerText: portfolioData.githubStats.contributions,
-          duration: 2,
-          ease: 'power1.out',
-          snap: { innerText: 1 },
-          onUpdate: function() {
-            if (contribsRef.current) {
-              contribsRef.current.innerText = Math.ceil(Number(contribsRef.current.innerText)) + '+'
-            }
-          }
-        })
-      }
+    import('gsap').then(({ default: gsap }) => {
+      ctx = gsap.context(() => {
+        const animateCounter = (
+          element: HTMLDivElement | null,
+          value: number,
+          format = true
+        ) => {
+          if (!element) return
+
+          const obj = { val: 0 }
+
+          gsap.to(obj, {
+            val: value,
+            duration: 2,
+            ease: 'power1.out',
+            onUpdate: () => {
+              const current = Math.ceil(obj.val)
+              element.textContent = format
+                ? current.toLocaleString() + '+'
+                : current + '+'
+            },
+          })
+        }
+
+        animateCounter(commitsRef.current, portfolioData.githubStats.commits, true)
+        animateCounter(reposRef.current, portfolioData.githubStats.repositories, false)
+        animateCounter(contribsRef.current, portfolioData.githubStats.contributions, false)
+      })
+    })
+
+    return () => {
+      ctx?.revert()
     }
   }, [isInView])
 
@@ -99,8 +90,8 @@ export default function GitHubStats() {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              variants={fadeInUp}
-              className="group relative p-8 rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20"
+              variants={zoomIn}
+              className="group relative p-8 rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/50 shadow-sm dark:shadow-none backdrop-blur-sm border border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
               <div className="relative">
@@ -111,7 +102,7 @@ export default function GitHubStats() {
                 >
                   0+
                 </div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
+                <div className="text-slate-500 dark:text-gray-400 text-sm">{stat.label}</div>
               </div>
             </motion.div>
           ))}

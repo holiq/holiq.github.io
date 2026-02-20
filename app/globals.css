@@ -5,8 +5,31 @@
 @tailwind utilities;
 
 :root {
+  /* Light mode */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --bg: #f8fafc;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --nav-bg: rgba(248, 250, 252, 0.92);
+  --border: rgba(0, 0, 0, 0.08);
+  --scrollbar-track: #e2e8f0;
+  --section-alt: rgba(241, 245, 249, 0.6);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.dark {
+  /* Dark mode */
   --background: #0f172a;
   --foreground: #ffffff;
+  --bg: #0f172a;
+  --fg: #ffffff;
+  --fg-muted: #94a3b8;
+  --nav-bg: rgba(15, 23, 42, 0.85);
+  --border: rgba(255, 255, 255, 0.1);
+  --scrollbar-track: #0f172a;
+  --section-alt: rgba(30, 41, 59, 0.4);
+  --card-shadow: none;
 }
 
 * {
@@ -19,11 +42,79 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Accessibility: Focus visible styles */
+:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .gradient-text {
+    @apply text-purple-400;
+  }
+
+  .glass-effect {
+    @apply border-2 border-white;
+  }
+}
+
+/* Smooth theme transition */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg);
+  color: var(--fg);
   overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #8B5CF6, #6366F1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #a78bfa, #818cf8);
+}
+
+/* Text selection color */
+::selection {
+  background-color: rgba(139, 92, 246, 0.35);
+  color: #fff;
 }
 
 @layer utilities {
@@ -36,6 +127,10 @@ body {
   }
 
   .glass-effect {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
+    @apply backdrop-blur-md bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/20;
+  }
+
+  .section-alt {
+    background-color: var(--section-alt);
   }
 }

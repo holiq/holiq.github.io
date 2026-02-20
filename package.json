@@ -1,5 +1,5 @@
 {
-  "name": "holiq.github.io",
+  "name": "holiq.id",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,20 +7,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/holiq/holiq.github.io.git"
+    "url": "git+https://github.com/holiq/holiq.id.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/holiq/holiq.github.io/issues"
+    "url": "https://github.com/holiq/holiq.id/issues"
   },
-  "homepage": "https://github.com/holiq/holiq.github.io#readme",
+  "homepage": "https://github.com/holiq/holiq.id#readme",
   "dependencies": {
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^9.5.0",
@@ -40,5 +40,15 @@
     "tailwindcss": "^3.4.0",
     "three": "^0.161.0",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^16.1.6",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "ts-jest": "^29.4.6"
   }
 }

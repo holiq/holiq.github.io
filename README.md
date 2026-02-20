@@ -17,7 +17,7 @@ A cutting-edge portfolio website built with Next.js 14, featuring stunning 3D an
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: TailwindCSS
-- **Animations**: 
+- **Animations**:
   - Framer Motion (page transitions & components)
   - GSAP (timeline & scroll animations)
   - Three.js + React Three Fiber (3D graphics)
@@ -36,8 +36,8 @@ A cutting-edge portfolio website built with Next.js 14, featuring stunning 3D an
 
 ```bash
 # Clone the repository
-git clone https://github.com/holiq/holiq.github.io.git
-cd holiq.github.io
+git clone https://github.com/holiq/holiq.id.git
+cd holiq.id
 
 # Install dependencies
 npm install --legacy-peer-deps
@@ -60,7 +60,7 @@ npm run build
 ## 📁 Project Structure
 
 ```
-holiq.github.io/
+holiq.id/
 ├── app/
 │   ├── layout.tsx          # Root layout with Lenis provider
 │   ├── page.tsx            # Main portfolio page
@@ -92,6 +92,7 @@ holiq.github.io/
 ### Update Portfolio Data
 
 Edit `/data/portfolio.ts` to update:
+
 - Personal information
 - GitHub stats
 - Experience
@@ -126,6 +127,7 @@ This project is open source and available under the MIT License.
 ## 👤 Author
 
 **Holiq Ibrahim**
+
 - GitHub: [@holiq](https://github.com/holiq)
 - Email: holiq.ibrahim376@gmail.com
 

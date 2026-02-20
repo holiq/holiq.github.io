@@ -6,8 +6,10 @@ export const portfolioData = {
     phone: "+6282298249439",
     location: "Tangerang, Indonesia",
     github: "https://github.com/holiq",
+    linkedin: "https://linkedin.com/in/holiq-ibrahim",
   },
-  summary: "Web Developer dengan keahlian utama Laravel, berpengalaman mengembangkan dan memelihara aplikasi web, open source, dan REST API. Cepat beradaptasi dengan lingkungan dan tim baru.",
+  summary:
+    "Web Developer dengan keahlian utama Laravel, berpengalaman mengembangkan dan memelihara aplikasi web, open source, dan REST API. Cepat beradaptasi dengan lingkungan dan tim baru.",
   githubStats: {
     commits: 3296,
     repositories: 82,
@@ -73,24 +75,35 @@ export const portfolioData = {
       date: "08/2024",
       description: "Implementasi fitur team Laravel Jetstream dengan Filament dan Livewire",
       tech: ["Laravel", "Filament", "Livewire"],
+      githubUrl: "https://github.com/holiq/filateam",
+      image: "/projects/filateam.png",
+      featured: true,
     },
     {
       title: "Landing Page Seccodeid",
       date: "04/2023",
       description: "Landing page responsive dan SEO-friendly menggunakan TailwindCSS",
       tech: ["TailwindCSS", "HTML", "SEO"],
+      liveUrl: "https://seccodeid.com",
+      githubUrl: "https://github.com/seccodeid/seccodeid.github.io",
+      image: "/projects/seccodeid.png",
+      featured: true,
     },
     {
       title: "CIlog",
       date: "05/2024 – 06/2024",
       description: "Aplikasi blog CodeIgniter 4 dengan panel admin, kategori, komentar, dan slug",
       tech: ["CodeIgniter", "PHP", "MySQL"],
+      githubUrl: "https://github.com/holiq/cilog",
+      image: "/projects/cilog.png",
     },
     {
       title: "Blog Laravel",
       date: "08/2020 – 09/2020",
       description: "Blog Laravel 7 dengan TailwindCSS dan AlpineJS",
       tech: ["Laravel", "TailwindCSS", "Alpine.js"],
+      githubUrl: "https://github.com/holiq/blog-laravel",
+      image: "/projects/blog-laravel.png",
     },
   ],
   skills: [
@@ -121,4 +134,4 @@ export const portfolioData = {
     },
   ],
   languages: ["Indonesia", "English"],
-}
+};

@@ -1,55 +1,60 @@
 'use client'
 
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei'
 import { motion } from 'framer-motion'
-import { fadeInUp, fadeIn } from '@/lib/animations'
+import { Suspense, useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import { fadeInUp, fadeIn, bounceIn, blurUp } from '@/lib/animations'
 import { portfolioData } from '@/data/portfolio'
-import { Github, Mail } from 'lucide-react'
+import { Github, Mail, Linkedin } from 'lucide-react'
+import LoadingSpinner from './LoadingSpinner'
 
-function AnimatedSphere() {
-  return (
-    <Sphere args={[1, 100, 200]} scale={2.5}>
-      <MeshDistortMaterial
-        color="#8B5CF6"
-        attach="material"
-        distort={0.5}
-        speed={2}
-        roughness={0.2}
-        metalness={0.8}
-      />
-    </Sphere>
-  )
-}
+// Dynamic import for Three.js components to reduce initial bundle size
+const Hero3D = dynamic(() => import('./Hero3D'), {
+  ssr: false,
+  loading: () => <LoadingSpinner />,
+})
 
 export default function Hero() {
+  const [isClient, setIsClient] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+    // Disable 3D on mobile / low-end devices to save GPU & battery
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" id="hero">
+      {/* 3D / Gradient Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <pointLight position={[-10, -10, -5]} intensity={0.5} color="#6366F1" />
-          <AnimatedSphere />
-          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
-        </Canvas>
+        {isClient && !isMobile ? (
+          <Suspense fallback={<LoadingSpinner />}>
+            <Hero3D />
+          </Suspense>
+        ) : (
+          /* Static gradient fallback for mobile & SSR — zero GPU cost */
+          <div className="w-full h-full bg-gradient-to-br from-slate-100 via-purple-100/40 to-slate-50 dark:from-slate-900 dark:via-purple-950/30 dark:to-slate-900" />
+        )}
       </div>
 
       {/* Gradient Orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      <div className="absolute top-20 left-10 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-25 dark:opacity-20 animate-blob"></div>
+      <div className="absolute top-40 right-10 w-96 h-96 bg-violet-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 dark:opacity-20 animate-blob animation-delay-2000"></div>
+      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 dark:opacity-20 animate-blob animation-delay-4000"></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
         <motion.div
           initial="hidden"
           animate="visible"
-          variants={fadeInUp}
+          variants={bounceIn}
         >
           <div className="mb-8">
-            <div className="w-32 h-32 mx-auto rounded-full gradient-bg flex items-center justify-center text-white text-5xl font-bold shadow-2xl">
+            <div className="w-32 h-32 mx-auto rounded-full gradient-bg flex items-center justify-center text-white text-5xl font-bold shadow-2xl animate-float">
               HI
             </div>
           </div>
@@ -59,7 +64,7 @@ export default function Hero() {
           className="text-6xl md:text-8xl font-bold mb-6"
           initial="hidden"
           animate="visible"
-          variants={fadeIn}
+          variants={blurUp}
           transition={{ delay: 0.2 }}
         >
           {portfolioData.personal.name}
@@ -76,7 +81,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.p
-          className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12"
+          className="text-lg md:text-xl text-slate-700 dark:text-gray-300 max-w-3xl mx-auto mb-12"
           initial="hidden"
           animate="visible"
           variants={fadeIn}
@@ -96,16 +101,28 @@ export default function Hero() {
             href={portfolioData.personal.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-white/20 transition-all duration-300 flex items-center gap-3"
+            className="group relative px-8 py-4 bg-black/10 dark:bg-white/10 backdrop-blur-md border border-black/20 dark:border-white/20 rounded-full hover:bg-black/20 dark:hover:bg-white/20 transition-all duration-300 flex items-center gap-3 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent"
+            aria-label="Visit GitHub profile"
           >
-            <Github className="w-5 h-5" />
+            <Github className="w-5 h-5" aria-hidden="true" />
             <span className="font-semibold">GitHub</span>
           </a>
           <a
-            href="#contact"
-            className="group relative px-8 py-4 gradient-bg rounded-full hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-3"
+            href={portfolioData.personal.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative px-8 py-4 bg-blue-600/15 dark:bg-blue-600/20 backdrop-blur-md border border-blue-400/40 dark:border-blue-500/30 rounded-full hover:bg-blue-600/25 dark:hover:bg-blue-600/30 transition-all duration-300 flex items-center gap-3 text-blue-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent"
+            aria-label="Visit LinkedIn profile"
           >
-            <Mail className="w-5 h-5" />
+            <Linkedin className="w-5 h-5" aria-hidden="true" />
+            <span className="font-semibold">LinkedIn</span>
+          </a>
+          <a
+            href="#contact"
+            className="group relative px-8 py-4 gradient-bg rounded-full hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+            aria-label="Contact me"
+          >
+            <Mail className="w-5 h-5" aria-hidden="true" />
             <span className="font-semibold">Contact Me</span>
           </a>
         </motion.div>

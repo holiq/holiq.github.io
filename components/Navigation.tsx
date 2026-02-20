@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
+import ThemeToggle from './ThemeToggle'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -31,7 +32,7 @@ export default function Navigation() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'backdrop-blur-md bg-slate-900/80 border-b border-white/10 shadow-lg'
+            ? 'backdrop-blur-md bg-white/88 dark:bg-slate-900/80 border-b border-black/10 dark:border-white/10 shadow-lg'
             : 'bg-transparent'
         }`}
         initial={{ y: -100 }}
@@ -49,26 +50,34 @@ export default function Navigation() {
             </motion.div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors duration-300 relative group"
+                  className="text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 relative group px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   {item.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-600 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               ))}
-            </div>
+            </nav>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-white"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Theme Toggle + Mobile Menu Button */}
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden text-slate-700 dark:text-white p-2 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -86,8 +95,11 @@ export default function Navigation() {
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <motion.div
-              className="absolute top-16 left-0 right-0 bg-slate-900/95 border-b border-white/10 shadow-xl"
+            <motion.nav
+              className="absolute top-16 left-0 right-0 bg-white/95 dark:bg-slate-900/95 border-b border-black/10 dark:border-white/10 shadow-xl"
+              id="mobile-menu"
+              role="navigation"
+              aria-label="Mobile navigation"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
@@ -97,14 +109,14 @@ export default function Navigation() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="block text-gray-300 hover:text-white transition-colors duration-300 text-lg"
+                    className="block text-slate-600 hover:text-slate-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 text-lg px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
                   </a>
                 ))}
               </div>
-            </motion.div>
+            </motion.nav>
           </motion.div>
         )}
       </AnimatePresence>

@@ -32,7 +32,7 @@ export default function Education() {
               variants={fadeInUp}
               className="group relative"
             >
-              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/20">
+              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/50 shadow-sm dark:shadow-none backdrop-blur-sm border border-slate-200 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/20">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <div className="relative flex flex-col md:flex-row md:items-start md:justify-between gap-4">
@@ -42,16 +42,16 @@ export default function Education() {
                         <GraduationCap className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                           {edu.institution}
                         </h3>
-                        <p className="text-purple-400 font-semibold text-lg">
+                        <p className="text-purple-600 dark:text-purple-400 font-semibold text-lg">
                           {edu.degree}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4 text-gray-400 text-sm ml-16">
+                    <div className="flex flex-col sm:flex-row gap-4 text-slate-500 dark:text-gray-400 text-sm ml-16">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
                         {edu.location}
