@@ -46,7 +46,7 @@ export default function Experience() {
 
         <div className="relative">
           {/* Timeline Line with Framer Motion */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-white/10">
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200/50 dark:bg-white/5">
             <motion.div
               className="absolute top-0 left-0 w-full bg-gradient-to-b from-purple-500 to-indigo-600 origin-top"
               style={{ height: timelineHeight }}
@@ -72,7 +72,7 @@ export default function Experience() {
 
                   {/* Content Card */}
                   <div className={`ml-20 md:ml-0 md:w-5/12 ${isEven ? 'md:pr-12' : 'md:pl-12'}`}>
-                    <div className="group relative p-6 rounded-xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/50 shadow-sm dark:shadow-none backdrop-blur-sm border border-slate-200 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
+                    <div className="group relative p-6 rounded-xl bg-white/60 dark:bg-slate-800/40 shadow-sm dark:shadow-none backdrop-blur-md border border-slate-200/60 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20">
                       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       
                       <div className="relative">

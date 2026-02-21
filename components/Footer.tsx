@@ -6,7 +6,7 @@ import { portfolioData } from '@/data/portfolio'
 
 export default function Footer() {
   return (
-    <footer className="relative py-12 border-t border-black/10 dark:border-white/10">
+    <footer className="relative py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center"

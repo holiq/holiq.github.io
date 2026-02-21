@@ -49,7 +49,7 @@ export default function Projects() {
               className="group relative"
             >
               <motion.div 
-                className="relative rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/50 shadow-sm dark:shadow-none backdrop-blur-sm border border-slate-200 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 h-full overflow-hidden"
+                className="relative rounded-2xl bg-white/60 dark:bg-slate-800/40 shadow-sm dark:shadow-none backdrop-blur-md border border-slate-200/60 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 h-full overflow-hidden"
                 whileHover={{ scale: 1.02, y: -4 }}
                 transition={{ duration: 0.3 }}
               >

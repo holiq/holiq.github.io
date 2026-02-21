@@ -8,33 +8,12 @@ import { Github, Mail, Linkedin } from 'lucide-react'
 export default function Hero() {
   const { scrollY } = useScroll()
   
-  // Parallax effects - different layers move at different speeds
-  const yBackground = useTransform(scrollY, [0, 500], [0, 150])
-  const yOrbs = useTransform(scrollY, [0, 500], [0, 100])
+  // Parallax effects for content
   const yContent = useTransform(scrollY, [0, 500], [0, 50])
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" id="hero">
-      {/* Enhanced Gradient Background with Parallax */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y: yBackground }}
-      >
-        <div className="w-full h-full bg-gradient-to-br from-slate-100 via-purple-100/40 to-slate-50 dark:from-slate-900 dark:via-purple-950/30 dark:to-slate-900" />
-      </motion.div>
-
-      {/* Enhanced Gradient Orbs with Parallax */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y: yOrbs }}
-      >
-        <div className="absolute top-20 -left-10 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 dark:opacity-20 animate-blob"></div>
-        <div className="absolute top-40 -right-10 w-96 h-96 bg-violet-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-25 dark:opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-1/3 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-25 dark:opacity-20 animate-blob animation-delay-4000"></div>
-        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-indigo-300 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-20 dark:opacity-15 animate-blob animation-delay-3000"></div>
-      </motion.div>
-
       {/* Content with Parallax */}
       <motion.div 
         className="relative z-10 max-w-6xl mx-auto px-4 text-center"
@@ -170,34 +149,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      <style jsx>{`
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-3000 {
-          animation-delay: 3s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </section>
   )
 }
