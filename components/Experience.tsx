@@ -5,6 +5,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { Briefcase, MapPin, CheckCircle2 } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { slideInLeft, slideInRight } from '@/lib/animations'
+import SectionBackground from './SectionBackground'
 
 export default function Experience() {
   const sectionRef = useRef(null)
@@ -32,8 +33,8 @@ export default function Experience() {
   }
 
   return (
-    <section id="experience" ref={sectionRef} className="py-32 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground variant="experience" id="experience" className="py-32">
+      <div ref={sectionRef} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text"
           initial={{ opacity: 0, y: 20 }}
@@ -119,6 +120,6 @@ export default function Experience() {
           </div>
         </div>
       </div>
-    </section>
+    </SectionBackground>
   )
 }

@@ -3,10 +3,11 @@
 import { motion } from 'framer-motion'
 import { Heart, Github, Mail } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
+import SectionBackground from './SectionBackground'
 
 export default function Footer() {
   return (
-    <footer className="relative py-12">
+    <SectionBackground variant="footer" className="py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center"
@@ -47,6 +48,6 @@ export default function Footer() {
           </div>
         </motion.div>
       </div>
-    </footer>
+    </SectionBackground>
   )
 }

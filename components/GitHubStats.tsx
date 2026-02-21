@@ -5,6 +5,7 @@ import { motion, useInView, animate } from 'framer-motion'
 import { GitBranch, GitCommit, GitPullRequest } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, zoomIn } from '@/lib/animations'
+import SectionBackground from './SectionBackground'
 
 export default function GitHubStats() {
   const ref = useRef(null)
@@ -71,7 +72,7 @@ export default function GitHubStats() {
   ]
 
   return (
-    <section id="about" className="py-20 relative">
+    <SectionBackground variant="stats" id="about" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -102,6 +103,6 @@ export default function GitHubStats() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </SectionBackground>
   )
 }

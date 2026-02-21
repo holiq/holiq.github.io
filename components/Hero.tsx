@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { fadeIn, blurUp } from '@/lib/animations'
 import { portfolioData } from '@/data/portfolio'
 import { Github, Mail, Linkedin } from 'lucide-react'
+import SectionBackground from './SectionBackground'
 
 export default function Hero() {
   const { scrollY } = useScroll()
@@ -13,7 +14,7 @@ export default function Hero() {
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" id="hero">
+    <SectionBackground variant="hero" id="hero" className="min-h-screen flex items-center justify-center">
       {/* Content with Parallax */}
       <motion.div 
         className="relative z-10 max-w-6xl mx-auto px-4 text-center"
@@ -149,6 +150,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-    </section>
+    </SectionBackground>
   )
 }

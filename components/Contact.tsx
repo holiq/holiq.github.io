@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Mail, Github, Phone, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
+import SectionBackground from './SectionBackground'
 
 // Setup Instructions:
 // 1. Sign up at https://formspree.io (free)
@@ -89,7 +90,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-32 relative">
+    <SectionBackground variant="contact" id="contact" className="py-32">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-20"
@@ -286,6 +287,6 @@ export default function Contact() {
           </div>
         </motion.div>
       </div>
-    </section>
+    </SectionBackground>
   )
 }

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Code, Database, Wrench } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, zoomIn, blurUp } from '@/lib/animations'
+import SectionBackground from './SectionBackground'
 
 export default function Skills() {
   const skillsByCategory = portfolioData.skills.reduce((acc, skill) => {
@@ -29,7 +30,7 @@ export default function Skills() {
   }
 
   return (
-    <section id="skills" className="py-32 relative">
+    <SectionBackground variant="skills" id="skills" className="py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text"
@@ -98,6 +99,6 @@ export default function Skills() {
           })}
         </motion.div>
       </div>
-    </section>
+    </SectionBackground>
   )
 }

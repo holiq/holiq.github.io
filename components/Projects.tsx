@@ -7,6 +7,7 @@ import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import Image from 'next/image'
 import { ProjectsSkeleton } from './Skeletons'
+import SectionBackground from './SectionBackground'
 
 export default function Projects() {
   const [mounted, setMounted] = useState(false)
@@ -23,7 +24,7 @@ export default function Projects() {
   if (!mounted) return <ProjectsSkeleton />
 
   return (
-    <section id="projects" className="py-32 relative">
+    <SectionBackground variant="projects" id="projects" className="py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text"
@@ -163,6 +164,6 @@ export default function Projects() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </SectionBackground>
   )
 }

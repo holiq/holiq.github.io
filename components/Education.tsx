@@ -4,10 +4,11 @@ import { motion } from 'framer-motion'
 import { GraduationCap, MapPin, Calendar } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
+import SectionBackground from './SectionBackground'
 
 export default function Education() {
   return (
-    <section className="py-32 relative">
+    <SectionBackground variant="education" className="py-32">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-5xl md:text-6xl font-bold text-center mb-20 gradient-text"
@@ -68,6 +69,6 @@ export default function Education() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </SectionBackground>
   )
 }
