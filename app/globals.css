@@ -134,27 +134,3 @@ body {
     background-color: var(--section-alt);
   }
 }
-
-/* Unified background blob animations */
-@keyframes unified-blob {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.05); }
-  66% { transform: translate(-20px, 20px) scale(0.95); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-
-.unified-blob {
-  animation: unified-blob 12s infinite ease-in-out;
-}
-
-.unified-delay-2 {
-  animation-delay: 2s;
-}
-
-.unified-delay-3 {
-  animation-delay: 3s;
-}
-
-.unified-delay-4 {
-  animation-delay: 4s;
-}

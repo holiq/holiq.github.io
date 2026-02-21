@@ -12,7 +12,7 @@ import UnifiedBackground from '@/components/UnifiedBackground'
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[var(--bg)] transition-colors duration-300">
+    <main className="relative min-h-screen bg-[var(--bg)] transition-colors duration-300">
       <UnifiedBackground />
       <div className="relative z-10">
         <Navigation />
@@ -26,6 +26,6 @@ export default function Home() {
         <Footer />
         <ScrollToTop />
       </div>
-    </div>
+    </main>
   )
 }
