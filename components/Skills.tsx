@@ -71,13 +71,24 @@ export default function Skills() {
 
                     <div className="space-y-3">
                       {skills.map((skill, idx) => (
+                      <motion.div
+                        key={idx}
+                        className="group/skill px-4 py-2.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 text-sm hover:bg-purple-50 dark:hover:bg-purple-500/10 hover:border-purple-300 dark:hover:border-purple-500/30 hover:text-purple-700 dark:hover:text-purple-300 transition-all duration-300 cursor-default relative overflow-hidden"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.05 }}
+                        viewport={{ once: true }}
+                        whileHover={{ x: 6, scale: 1.03 }}
+                      >
+                        {/* Hover gradient effect */}
                         <motion.div
-                          key={idx}
-                          className="px-4 py-2 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-slate-600 dark:text-gray-300 text-sm hover:bg-purple-50 dark:hover:bg-white/10 hover:border-purple-300 dark:hover:border-purple-500/30 transition-all duration-300"
-                          whileHover={{ x: 5 }}
-                        >
-                          {skill}
-                        </motion.div>
+                          className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent opacity-0 group-hover/skill:opacity-100 transition-opacity"
+                          initial={{ x: '-100%' }}
+                          whileHover={{ x: '0%' }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        <span className="relative z-10 font-medium">{skill}</span>
+                      </motion.div>
                       ))}
                     </div>
                   </div>

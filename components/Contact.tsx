@@ -6,8 +6,14 @@ import { Mail, Github, Phone, MapPin, Send, CheckCircle, AlertCircle, Loader2 } 
 import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 
-// Replace with your Formspree form ID from https://formspree.io
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+// Setup Instructions:
+// 1. Sign up at https://formspree.io (free)
+// 2. Create a new form and get your form ID
+// 3. Replace YOUR_FORM_ID below with your actual form ID
+// 4. Or set NEXT_PUBLIC_FORMSPREE_ID in .env.local
+const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ID 
+  ? `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`
+  : 'mailto:me@holiq.id' // Fallback to direct email
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -49,6 +55,19 @@ export default function Contact() {
     setFormStatus('loading')
     setErrorMessage('')
 
+    // If using mailto fallback, open email client
+    if (FORMSPREE_ENDPOINT.startsWith('mailto:')) {
+      const subject = encodeURIComponent('Portfolio Contact')
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      )
+      window.location.href = `${FORMSPREE_ENDPOINT}?subject=${subject}&body=${body}`
+      setFormStatus('success')
+      setFormData({ name: '', email: '', message: '' })
+      return
+    }
+
+    // Otherwise use Formspree
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
@@ -103,15 +122,25 @@ export default function Contact() {
               rel={item.icon === Github ? 'noopener noreferrer' : undefined}
               variants={fadeInUp}
               className="group relative focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-2xl"
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               aria-label={`Contact via ${item.title}: ${item.value}`}
             >
-              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/50 shadow-sm dark:shadow-none backdrop-blur-sm border border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 text-center h-full">
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`} />
+              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/50 shadow-sm dark:shadow-none backdrop-blur-sm border border-slate-200 dark:border-white/10 hover:border-purple-300 dark:hover:border-purple-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 text-center h-full">
+                <motion.div 
+                  className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}
+                  initial={false}
+                  whileHover={{ opacity: 0.1 }}
+                />
                 <div className="relative">
-                  <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${item.color} mb-4`}>
+                  <motion.div 
+                    className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${item.color} mb-4 shadow-lg`}
+                    whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <item.icon className="w-8 h-8 text-white" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:gradient-text transition-all duration-300">{item.title}</h3>
                   <p className="text-slate-600 dark:text-gray-300 text-sm break-all">{item.value}</p>
                 </div>
               </div>

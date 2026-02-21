@@ -1,11 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { motion, useInView, animate } from 'framer-motion'
 import { GitBranch, GitCommit, GitPullRequest } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { staggerContainer, zoomIn } from '@/lib/animations'
-import { GitHubStatsSkeleton } from './Skeletons'
 
 export default function GitHubStats() {
   const ref = useRef(null)
@@ -18,40 +17,35 @@ export default function GitHubStats() {
   useEffect(() => {
     if (!isInView) return
 
-    let ctx: any
+    const animateCounter = (
+      element: HTMLDivElement | null,
+      value: number,
+      format = true
+    ) => {
+      if (!element) return
 
-    import('gsap').then(({ default: gsap }) => {
-      ctx = gsap.context(() => {
-        const animateCounter = (
-          element: HTMLDivElement | null,
-          value: number,
-          format = true
-        ) => {
-          if (!element) return
-
-          const obj = { val: 0 }
-
-          gsap.to(obj, {
-            val: value,
-            duration: 2,
-            ease: 'power1.out',
-            onUpdate: () => {
-              const current = Math.ceil(obj.val)
-              element.textContent = format
-                ? current.toLocaleString() + '+'
-                : current + '+'
-            },
-          })
-        }
-
-        animateCounter(commitsRef.current, portfolioData.githubStats.commits, true)
-        animateCounter(reposRef.current, portfolioData.githubStats.repositories, false)
-        animateCounter(contribsRef.current, portfolioData.githubStats.contributions, false)
+      const controls = animate(0, value, {
+        duration: 2,
+        ease: 'easeOut',
+        onUpdate: (latest) => {
+          const current = Math.ceil(latest)
+          element.textContent = format
+            ? current.toLocaleString() + '+'
+            : current + '+'
+        },
       })
-    })
+
+      return controls
+    }
+
+    const commitsControl = animateCounter(commitsRef.current, portfolioData.githubStats.commits, true)
+    const reposControl = animateCounter(reposRef.current, portfolioData.githubStats.repositories, false)
+    const contribsControl = animateCounter(contribsRef.current, portfolioData.githubStats.contributions, false)
 
     return () => {
-      ctx?.revert()
+      commitsControl?.stop()
+      reposControl?.stop()
+      contribsControl?.stop()
     }
   }, [isInView])
 

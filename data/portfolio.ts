@@ -2,7 +2,7 @@ export const portfolioData = {
   personal: {
     name: "Holiq Ibrahim",
     title: "Web Developer",
-    email: "holiq.ibrahim376@gmail.com",
+    email: "me@holiq.id",
     phone: "+6282298249439",
     location: "Tangerang, Indonesia",
     github: "https://github.com/holiq",

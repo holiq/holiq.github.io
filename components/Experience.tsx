@@ -1,38 +1,22 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { Briefcase, MapPin, CheckCircle2 } from 'lucide-react'
 import { portfolioData } from '@/data/portfolio'
 import { slideInLeft, slideInRight } from '@/lib/animations'
 
 export default function Experience() {
   const sectionRef = useRef(null)
-  const timelineRef = useRef(null)
-
-  useEffect(() => {
-    // Dynamic import GSAP only when needed
-    import('gsap').then(({ default: gsap }) => {
-      import('gsap/dist/ScrollTrigger').then(({ ScrollTrigger }) => {
-        if (typeof window !== 'undefined') {
-          gsap.registerPlugin(ScrollTrigger)
-          
-          if (timelineRef.current) {
-            gsap.to(timelineRef.current, {
-              height: '100%',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top center',
-                end: 'bottom center',
-                scrub: 1,
-              },
-            })
-          }
-        }
-      })
-    })
-  }, [])
+  const isInView = useInView(sectionRef, { once: false, margin: "-100px" })
+  
+  // Scroll-based timeline animation
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end center"]
+  })
+  
+  const timelineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
   const getTypeBadgeColor = (type: string) => {
     switch (type) {
@@ -61,12 +45,11 @@ export default function Experience() {
         </motion.h2>
 
         <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-black/10 dark:bg-white/10">
-            <div
-              ref={timelineRef}
-              className="absolute top-0 left-0 w-full bg-gradient-to-b from-purple-500 to-indigo-600"
-              style={{ height: '0%' }}
+          {/* Timeline Line with Framer Motion */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-white/10">
+            <motion.div
+              className="absolute top-0 left-0 w-full bg-gradient-to-b from-purple-500 to-indigo-600 origin-top"
+              style={{ height: timelineHeight }}
             />
           </div>
 

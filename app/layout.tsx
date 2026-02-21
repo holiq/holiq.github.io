@@ -68,7 +68,7 @@ const jsonLd = {
   name: 'Holiq Ibrahim',
   jobTitle: 'Web Developer',
   url: 'https://holiq.id',
-  email: 'holiq.ibrahim376@gmail.com',
+  email: 'me@holiq.id',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tangerang',
